@@ -74,3 +74,8 @@ Endpoint Usage
 	curl -H "Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjI0Mzc0NzciLCJuYW1lIjoiR2Vvcmd5IFNoYWJ1bmluIiwiYWNjZXNzVG9rZW4iOiI4ZTI1ZGE3MDFiNjViYWQzMDBkNGIzZDQ0OGFiZDBiMTU5OWFkYjY3IiwiaWF0IjoxNDc1NDI0NjAzfQ.1Ht1IMUgG3cdJjEONuqFq9nRgQE32zvQjIF-sgtTyPQ" http://localhost:3000/repos/search/awesome
 ``` 
 
+
+TODO
+----
+
+- Mock ([nock](https://github.com/node-nock/nock)) the GitHub API for more stable testing.
