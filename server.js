@@ -12,6 +12,11 @@ const passport = require('passport');
 dotenv.load({ path: '.env' });
 
 /**
+ * Controllers (route handlers).
+ */
+const apiController = require('./controllers/api');
+
+/**
  * Create Express server.
  */
 let app = express();
@@ -25,7 +30,7 @@ app.set('port', process.env.PORT || 3000);
 /**
  * API keys and Passport configuration.
  */
-require('./config/passport');
+const passportConfig = require('./config/passport');
 app.use(passport.initialize());
 
 /**
@@ -34,6 +39,13 @@ app.use(passport.initialize());
 app.get('/', (req, res) => {
 	res.send('This is the home route');
 });
+
+
+/**
+ * API routes.
+ */
+
+app.get('/repos', passport.authenticate('jwt', { session: false}), apiController.getRepos);
 
 /**
  * OAuth authentication routes. (Sign in)
