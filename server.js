@@ -5,7 +5,6 @@ const chalk = require('chalk');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
 
-
 /**
  * Load environment variables from .env file, where API keys and passwords are configured.
  */
@@ -34,18 +33,12 @@ const passportConfig = require('./config/passport');
 app.use(passport.initialize());
 
 /**
- * Primary app routes.
- */
-app.get('/', (req, res) => {
-	res.send('This is the home route');
-});
-
-
-/**
  * API routes.
  */
 
 app.get('/repos', passport.authenticate('jwt', { session: false}), apiController.getRepos);
+app.get('/repos/:id', passport.authenticate('jwt', { session: false}), apiController.getRepo);
+app.get('/repos/search/:query', passport.authenticate('jwt', { session: false}), apiController.searchRepos);
 
 /**
  * OAuth authentication routes. (Sign in)
