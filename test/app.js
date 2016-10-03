@@ -8,7 +8,9 @@ chai.use(chaiHttp);
 
 let token = jwt.sign({ name: "Georgy Shabunin"}, process.env.APP_SECRET);
 
-describe('API', () => {
+describe('API', function() {
+  this.timeout(15000);
+  
   describe('GET /repos', () => { 
     it('should respond with status 401 when not authenticated', (done) => {
       chai.request(app)
@@ -56,12 +58,12 @@ describe('API', () => {
       });   
     });
 
-    it('should respond with status 500 if repo doesn\'t exist', (done) => {
+    it('should respond with status 404 if repo doesn\'t exist', (done) => {
       chai.request(app)
           .get('/repos/2')
           .set('authorization', 'JWT ' + token)
           .end((err, res) => {
-            expect(res).to.have.status(500);
+            expect(res).to.have.status(404);
             done();
       });   
     });
