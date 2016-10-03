@@ -36,9 +36,7 @@ app.use(passport.initialize());
  * API routes.
  */
 
-app.get('/repos', passport.authenticate('jwt', { session: false}), apiController.getRepos);
-app.get('/repos/:id', passport.authenticate('jwt', { session: false}), apiController.getRepo);
-app.get('/repos/search/:query', passport.authenticate('jwt', { session: false}), apiController.searchRepos);
+const apiRoutes = require('./routes/api')(app, apiController);
 
 /**
  * OAuth authentication routes. (Sign in)
