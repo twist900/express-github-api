@@ -24,7 +24,10 @@ exports.getRepos = (req, res, next) => {
       res.send(JSON.parse(result));
     } else {
       github.repos.getPublic({}, (err, repoList) => {
-        if (err) { return next(err); }
+        if (err) { 
+          res.status(err.code).json({ message: JSON.parse(err.message).message });
+          return next();  
+        }
         let resultList = repoList.map( repo => { 
           return {
             id: repo.id,
@@ -48,7 +51,10 @@ exports.getRepo = (req, res, next) => {
       res.send(JSON.parse(result));
     } else {  
       github.repos.getById({ id: req.params.id }, (err, repo) => {
-        if (err) { return next(err); }
+        if (err) { 
+          res.status(err.code).json({ message: JSON.parse(err.message).message });
+          return next(); 
+        }
         let result = {
           id: repo.id,
           user: {
@@ -81,7 +87,10 @@ exports.searchRepos = (req, res, next) => {
       github.search.repos({
         q: req.params.query,
       }, function(err, searchResults) {
-        if (err) { return next(err); }
+        if (err) { 
+          res.status(err.code).json({ message: JSON.parse(err.message).message });
+          return next(); 
+        }
         let resultList = [];
         if(searchResults.items){
           resultList = searchResults.items.map( repo => { 
